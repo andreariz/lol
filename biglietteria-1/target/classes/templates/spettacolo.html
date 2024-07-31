@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spettacolo</title>
+
+
+    <style>
+
+      .current{
+        text-decoration: underline !important;
+        color: black;
+      }
+
+
+    </style>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+
+
+    <header>
+      <nav class="navbar navbar-expand-sm bg-light">
+        <div class="container">
+          <ul class="navbar-nav">
+            <a class="nav-link ms-auto" href="../index.html">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="50"
+                height="50"
+                fill="currentColor"
+                class="bi bi-ticket-perforated"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M4 4.85v.9h1v-.9zm7 0v.9h1v-.9zm-7 1.8v.9h1v-.9zm7 0v.9h1v-.9zm-7 1.8v.9h1v-.9zm7 0v.9h1v-.9zm-7 1.8v.9h1v-.9zm7 0v.9h1v-.9z"
+                />
+                <path
+                  d="M1.5 3A1.5 1.5 0 0 0 0 4.5V6a.5.5 0 0 0 .5.5 1.5 1.5 0 1 1 0 3 .5.5 0 0 0-.5.5v1.5A1.5 1.5 0 0 0 1.5 13h13a1.5 1.5 0 0 0 1.5-1.5V10a.5.5 0 0 0-.5-.5 1.5 1.5 0 0 1 0-3A.5.5 0 0 0 16 6V4.5A1.5 1.5 0 0 0 14.5 3zM1 4.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v1.05a2.5 2.5 0 0 0 0 4.9v1.05a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-1.05a2.5 2.5 0 0 0 0-4.9z"
+                />
+              </svg>
+              TicketEZ
+            </a>
+          </ul>
+          
+          <div class="d-flex justify-content-end">
+    
+            <a class="nav-link me-5 current " href="#"
+            >Spettacoli </a>
+
+
+
+
+
+
+
+
+          <a class="nav-link" href="carrello"
+            >Carrello
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-cart"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"
+              /></svg
+          ></a>
+
+          </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="container">
+    
+      
+      <h1 class="mt-2">Spettacoli</h1>
+    
+      <p>Ricerca per data o per teatro</p>
+      <div class="ricerca mt-4 row row-cols">
+
+        <select style="width: 20%;"  class="form-control" name="scelta" id="">
+          <option value="data">Data</option>
+          <option value="teatro">Teatro</option>
+        </select>
+
+        
+
+        <button class="btn btn-primary " style="width:fit-content;"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+        </svg></button>
+
+
+
+      </div>
+
+
+      
+      <div id="hero" class="row row-cols-4"></div>
+
+
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    >
+  </script>
+
+    <script>
+      let hero = document.querySelector("#hero");
+      const url = "http://localhost:9020/api/spettacoli";
+
+      
+      let biglietti =JSON.parse(localStorage.getItem("etichetta"))||[];
+
+
+      window.addEventListener("DOMContentLoaded", ()=>{
+
+        fetch(url)
+        .then((data) => {
+          console.log("sono in fetch")
+          return data.json();
+
+        })
+        .then((response) => {
+          response.forEach((spettacolo) => {
+            console.log(spettacolo[0]);
+            
+            
+            
+            
+            <!-- comincio a creare la card -->
+            
+            let card = document.createElement("div");
+            card.setAttribute("class", "card m-3 ");
+            card.setAttribute("style", "width: 18rem");
+            
+            card.innerHTML = 
+            `<img src="https://st2.depositphotos.com/4215343/6595/i/950/depositphotos_65955205-stock-photo-orange-admission-tickets.jpg" class="card-img-top mt-3" alt="..." style="border-radius: 5px; height:200px">
+            <div class="card-body">
+              <h5 class="card-title">Titolo: ${spettacolo.titolo}</h5>
+              <p class="card-text">Regista: ${spettacolo.regista}</p>
+              <p class="card-text">Costo: ${spettacolo.prezzo}€</p>
+
+              
+              
+              
+              
+            </div>`;
+            
+            let button = document.createElement("button");
+            button.textContent = "Aggiungi al carrello";
+            button.setAttribute("class", "btn btn-primary mt-1 mb-3");
+            card.appendChild(button);
+            
+            button.textContent = "Aggiungi al carrello";
+            button.setAttribute("class", "btn btn-primary mt-1 mb-3");
+            card.appendChild(button);
+            
+            
+            
+            
+            
+            hero.appendChild(card);
+            
+            button.addEventListener("click", function(){
+              biglietti.push(spettacolo)
+              let bigliettiJSON=JSON.stringify(biglietti);
+              localStorage.setItem("etichetta", bigliettiJSON);
+              console.log(biglietti);
+              console.log("aggiunto alla local storage")
+              button.disabled = true;
+              button.innerHTML="Aggiunto al carrello!"
+              
+              let btnrimuovi = document.createElement("button");
+              btnrimuovi.setAttribute("class", "btn btn-danger mb-3");
+              btnrimuovi.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+              </svg>`;
+              
+              
+              card.appendChild(btnrimuovi);
+              
+              btnrimuovi.addEventListener("click", function () {
+                let index = biglietti.indexOf(spettacolo);
+                
+                biglietti.splice(index, 1);
+                localStorage.setItem(
+                  "etichetta",
+                  JSON.stringify(biglietti)
+                  );
+                  console.log("cancello "+biglietti.length);
+                  console.log(biglietti);
+                  
+                  btnrimuovi.parentNode.removeChild(btnrimuovi); 
+                  
+                  button.disabled = false;
+                  button.innerHTML="Aggiungi al carrello"
+                  
+                });
+                
+                
+                
+              })
+              
+              
+              
+              
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+          
+        })
+          
+          
+          
+
+
+    </script>
+  </body>
+</html>
